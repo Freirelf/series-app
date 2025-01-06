@@ -35,6 +35,6 @@ class SerieController extends Controller
         // ]);
         
         // return view('list-series', compact('series'));
-        return view('list-series') -> with('series', $series);
+        return view('series.index') -> with('series', $series);
     }
 }
