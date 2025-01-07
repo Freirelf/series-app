@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Serie;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -9,7 +10,11 @@ class SerieController extends Controller
 {
     public function index()
     {       
-        $series = DB::select('select * from series');
+        // $series = Serie::all();
+
+        $series = Serie::query()->orderBy('name')->get();
+
+        // $series = DB::select('select * from series');
 
         // $series = [
         //     'The Walking Dead',
@@ -49,9 +54,10 @@ class SerieController extends Controller
     public function store(Request $request)
     {
         $serieName = $request->input('name');
+        $serie = new Serie();
+        $serie->name = $serieName;
+        $serie->save();
         
-        DB::insert('insert into series (name) values (?)', [$serieName]);
-
         return redirect('/series');
     }
 }
